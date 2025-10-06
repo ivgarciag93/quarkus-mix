@@ -7,6 +7,7 @@ import jakarta.ws.rs.WebApplicationException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.ivione93.dto.strava.*;
+import org.ivione93.services.async.StravaAsyncCallService;
 import org.ivione93.services.dataservices.StravaDataService;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,13 +31,13 @@ public class StravaApiService {
     StravaDataService stravaDataService;
 
     @Inject
-    AsynCallService asynCallService;
+    StravaAsyncCallService stravaAsyncCallService;
 
     public AuthResponse getAuthToken(final String code) {
         AuthParams authParams = new AuthParams(clientId, clientSecret, code, GRANT_TYPE_AUTH);
 
         final CompletableFuture<AuthResponse> futureAuthResponse =
-            asynCallService.getAuthToken(authParams);
+              stravaAsyncCallService.getAuthToken(authParams);
 
         try {
             AuthResponse authResponse = futureAuthResponse.get();
@@ -56,7 +57,7 @@ public class StravaApiService {
             new RefreshTokenParams(clientId, clientSecret, refreshToken, GRANT_TYPE_REFRESH);
 
         final CompletableFuture<RefreshTokenResponse> futureRefreshTokenResponse =
-            asynCallService.getRefreshToken(refreshTokenParams);
+              stravaAsyncCallService.getRefreshToken(refreshTokenParams);
 
         try {
             RefreshTokenResponse refreshTokenResponse = futureRefreshTokenResponse.get();
@@ -73,7 +74,7 @@ public class StravaApiService {
 
     public AthleteResponse getAthlete() {
         try {
-            return asynCallService.getAthlete(token).get();
+            return stravaAsyncCallService.getAthlete(token).get();
         } catch (Exception ex) {
             Log.errorf(ex, "Error while obtaining Strava athlete info");
             throw new WebApplicationException("Unable to obtain Strava athlete info", ex);
@@ -82,7 +83,7 @@ public class StravaApiService {
 
     public AthleteStatsResponse getAthleteStats(Integer athleteId) {
         try {
-            return asynCallService.getAthleteStats(token, athleteId).get();
+            return stravaAsyncCallService.getAthleteStats(token, athleteId).get();
         } catch (Exception ex) {
             Log.errorf(ex, "Error while obtaining Strava athlete stats");
             throw new WebApplicationException("Unable to obtain Strava athlete stats", ex);
