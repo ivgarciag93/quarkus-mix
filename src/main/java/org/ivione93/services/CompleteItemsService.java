@@ -8,6 +8,8 @@ import org.ivione93.dto.CompletedItemsResponse;
 import org.ivione93.dto.ConfigDto;
 import org.ivione93.dto.ItemInfo;
 import org.ivione93.dto.ItemPrice;
+import org.ivione93.services.async.CombinedAsyncCallService;
+import org.ivione93.services.async.PriceAsyncCallService;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -21,18 +23,21 @@ import java.util.stream.Collectors;
 public class CompleteItemsService {
 
     @Inject
-    AsynCallService asynCallService;
+    CombinedAsyncCallService combinedAsyncCallService;
+
+    @Inject
+    PriceAsyncCallService priceAsyncCallService;
 
     public CompletedItemsResponse getCombined() {
 
         final CompletableFuture<ConfigDto> futureConfig =
-            asynCallService.getConfig();
+            combinedAsyncCallService.getConfig();
 
         final CompletableFuture<List<ItemInfo>> futureInfo =
-            asynCallService.getItemsInfo();
+            combinedAsyncCallService.getItemsInfo();
 
         final CompletableFuture<List<ItemPrice>> futurePrice =
-            asynCallService.getItemsPrice();
+            priceAsyncCallService.getItemsPrice();
 
         try {
             CompletableFuture.allOf(futureConfig, futureInfo, futurePrice).join();

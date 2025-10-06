@@ -7,6 +7,7 @@ import jakarta.ws.rs.WebApplicationException;
 import org.ivione93.dto.account.BalanceResponse;
 import org.ivione93.dto.accountdata.AccountBalanceResponse;
 import org.ivione93.dto.accountdata.AccountStock;
+import org.ivione93.services.async.AccountAsyncCallService;
 import org.ivione93.services.converters.AccountConverterService;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,14 +16,14 @@ import java.util.concurrent.CompletableFuture;
 public class AccountService {
 
     @Inject
-    AsynCallService asynCallService;
+    AccountAsyncCallService accountAsyncCallService;
 
     @Inject
     AccountConverterService accountConverterService;
 
     public BalanceResponse getOutstandingBalance(final int storeCode, final String fiscalId) {
         CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-            asynCallService.getOutstandingBalance(storeCode, fiscalId);
+            accountAsyncCallService.getOutstandingBalance(storeCode, fiscalId);
         try {
             return accountConverterService.fillOutstandingBalance(futureAccountBalance.get());
         } catch (Exception ex) {
@@ -33,7 +34,7 @@ public class AccountService {
 
     public BalanceResponse getDailyMovements(final int storeCode, final String fiscalId) {
         CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-            asynCallService.getDailyMovements(storeCode, fiscalId);
+            accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
         try {
             return accountConverterService.fillDailyMovements(futureAccountBalance.get());
         } catch (Exception ex) {
@@ -44,9 +45,9 @@ public class AccountService {
 
     public BalanceResponse getTotalDebt(final int storeCode, final String fiscalId) {
         CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-            asynCallService.getDailyMovements(storeCode, fiscalId);
+            accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
 
-        CompletableFuture<AccountStock> futureAccountStock = asynCallService.getStock();
+        CompletableFuture<AccountStock> futureAccountStock = accountAsyncCallService.getStock();
 
         try {
             CompletableFuture.allOf(futureAccountBalance, futureAccountStock).join();
