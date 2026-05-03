@@ -44,7 +44,7 @@ public class AccountService {
 
   public BalanceResponse getTotalDebt(final int storeCode, final String fiscalId) {
     CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-      accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
+      accountAsyncCallService.getTotalDebt(storeCode, fiscalId);
 
     CompletableFuture<AccountStock> futureAccountStock = accountAsyncCallService.getStock();
 

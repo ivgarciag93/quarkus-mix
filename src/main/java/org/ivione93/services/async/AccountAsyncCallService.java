@@ -36,6 +36,16 @@ public class AccountAsyncCallService extends BaseAsyncCallService {
       });
   }
 
+  public CompletableFuture<AccountBalanceResponse> getTotalDebt(final int storeCode, final String fiscalId) {
+    return managedExecutor
+      .supplyAsync(() -> franchisesAccountService.getTotalDebt(storeCode, fiscalId))
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining total debt in account-data");
+        throw toCompletionException(ex);
+      });
+  }
+
   public CompletableFuture<AccountStock> getStock() {
     return managedExecutor
       .supplyAsync(() -> franchisesAccountService.getStock())
