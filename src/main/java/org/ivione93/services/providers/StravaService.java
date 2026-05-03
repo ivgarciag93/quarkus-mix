@@ -8,8 +8,7 @@ import org.ivione93.services.dataservices.StravaDataService;
 @ApplicationScoped
 public class StravaService {
 
-    @RestClient
-    StravaDataService stravaDataService;
+    @RestClient StravaDataService stravaDataService;
 
     public AuthResponse getAuthToken(AuthParams authParams) {
         return stravaDataService.getAuthToken(authParams);

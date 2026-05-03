@@ -15,11 +15,8 @@ import java.util.concurrent.CompletableFuture;
 @ApplicationScoped
 public class AccountService {
 
-    @Inject
-    AccountAsyncCallService accountAsyncCallService;
-
-    @Inject
-    AccountConverterService accountConverterService;
+    @Inject AccountAsyncCallService accountAsyncCallService;
+    @Inject AccountConverterService accountConverterService;
 
     public BalanceResponse getOutstandingBalance(final int storeCode, final String fiscalId) {
         CompletableFuture<AccountBalanceResponse> futureAccountBalance =

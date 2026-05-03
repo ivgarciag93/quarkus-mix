@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class CombinedAsyncCallService extends AsyncCallService {
+public class CombinedAsyncCallService extends BaseAsyncCallService {
 
     @Inject
     CombinedService combinedService;

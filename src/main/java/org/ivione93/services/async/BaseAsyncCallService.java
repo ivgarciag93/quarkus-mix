@@ -8,13 +8,12 @@ import org.eclipse.microprofile.context.ManagedExecutor;
 import java.util.concurrent.CompletionException;
 
 @ApplicationScoped
-public abstract class AsyncCallService {
+public abstract class BaseAsyncCallService {
 
     @ConfigProperty(name = "bff.timeout.milliseconds")
     int timeoutMilliseconds;
 
-    @Inject
-    ManagedExecutor managedExecutor;
+    @Inject ManagedExecutor managedExecutor;
 
     CompletionException toCompletionException(final Throwable ex) {
         return ex instanceof CompletionException

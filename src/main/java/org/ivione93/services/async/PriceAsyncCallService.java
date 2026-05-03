@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class PriceAsyncCallService extends AsyncCallService {
+public class PriceAsyncCallService extends BaseAsyncCallService {
 
     @Inject
     PriceService priceService;

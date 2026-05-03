@@ -11,11 +11,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class AccountAsyncCallService extends AsyncCallService {
+public class AccountAsyncCallService extends BaseAsyncCallService {
 
-    @Inject
-    FranchisesAccountService franchisesAccountService;
-
+    @Inject FranchisesAccountService franchisesAccountService;
 
     public CompletableFuture<AccountBalanceResponse> getOutstandingBalance(final int storeCode, final String fiscalId) {
         return managedExecutor
