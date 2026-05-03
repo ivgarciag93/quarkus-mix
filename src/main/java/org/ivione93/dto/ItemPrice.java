@@ -5,9 +5,9 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 @RegisterForReflection
 public class ItemPrice {
 
-    public Integer itemCode;
-    public Double retailPrice;
-    public Double royaltyRetailPrice;
-    public Double nonRoyaltyRetailPrice;
+  public Integer itemCode;
+  public Double retailPrice;
+  public Double royaltyRetailPrice;
+  public Double nonRoyaltyRetailPrice;
 
 }

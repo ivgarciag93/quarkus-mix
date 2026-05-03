@@ -11,17 +11,17 @@ import java.util.concurrent.atomic.AtomicReference;
 @ApplicationScoped
 public class RecordConverterService {
 
-    public InternalDto mapToInternalDto(final ExternalDto externalDto) {
-        AtomicReference<BigDecimal> pendingAmount = new AtomicReference<>(externalDto.initBalanceAmount());
+  public InternalDto mapToInternalDto(final ExternalDto externalDto) {
+    AtomicReference<BigDecimal> pendingAmount = new AtomicReference<>(externalDto.initBalanceAmount());
 
-        List<InternalDto.InternalMovement> movements = externalDto.movements().stream()
-            .map(mov -> {
-                BigDecimal newPending = pendingAmount.get().add(mov.amount());
-                pendingAmount.set(newPending);
-                return new InternalDto.InternalMovement(mov.creationDate(), mov.name(), mov.amount(), newPending);
-            })
-            .toList().reversed();
+    List<InternalDto.InternalMovement> movements = externalDto.movements().stream()
+      .map(mov -> {
+        BigDecimal newPending = pendingAmount.get().add(mov.amount());
+        pendingAmount.set(newPending);
+        return new InternalDto.InternalMovement(mov.creationDate(), mov.name(), mov.amount(), newPending);
+      })
+      .toList().reversed();
 
-        return new InternalDto(externalDto.initBalanceAmount(), externalDto.endBalanceAmount(), movements);
-    }
+    return new InternalDto(externalDto.initBalanceAmount(), externalDto.endBalanceAmount(), movements);
+  }
 }

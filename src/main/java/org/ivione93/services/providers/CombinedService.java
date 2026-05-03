@@ -11,15 +11,15 @@ import java.util.List;
 @ApplicationScoped
 public class CombinedService {
 
-    @RestClient
-    CombinedDataService combinedDataService;
+  @RestClient
+  CombinedDataService combinedDataService;
 
-    public ConfigDto getConfig() {
-        return combinedDataService.getConfig();
-    }
+  public ConfigDto getConfig() {
+    return combinedDataService.getConfig();
+  }
 
-    public List<ItemInfo> getItemsInfo() {
-        return combinedDataService.getItemsInfo();
-    }
+  public List<ItemInfo> getItemsInfo() {
+    return combinedDataService.getItemsInfo();
+  }
 
 }

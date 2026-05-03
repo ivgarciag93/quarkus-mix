@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @RegisterForReflection
 public class StockBalanceResponse extends BalanceResponse {
 
-    public BigDecimal stockTotalAmountWithVAT;
-    public LocalDate stockLastUpdateDate;
+  public BigDecimal stockTotalAmountWithVAT;
+  public LocalDate stockLastUpdateDate;
 
 }

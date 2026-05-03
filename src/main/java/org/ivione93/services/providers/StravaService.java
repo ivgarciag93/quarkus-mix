@@ -8,22 +8,23 @@ import org.ivione93.services.dataservices.StravaDataService;
 @ApplicationScoped
 public class StravaService {
 
-    @RestClient StravaDataService stravaDataService;
+  @RestClient
+  StravaDataService stravaDataService;
 
-    public AuthResponse getAuthToken(AuthParams authParams) {
-        return stravaDataService.getAuthToken(authParams);
-    }
+  public AuthResponse getAuthToken(AuthParams authParams) {
+    return stravaDataService.getAuthToken(authParams);
+  }
 
-    public RefreshTokenResponse getRefreshToken(RefreshTokenParams refreshTokenParams) {
-        return stravaDataService.getRefreshToken(refreshTokenParams);
-    }
+  public RefreshTokenResponse getRefreshToken(RefreshTokenParams refreshTokenParams) {
+    return stravaDataService.getRefreshToken(refreshTokenParams);
+  }
 
-    public AthleteResponse getAthlete(String token) {
-        return stravaDataService.getAthlete(token);
-    }
+  public AthleteResponse getAthlete(String token) {
+    return stravaDataService.getAthlete(token);
+  }
 
-    public AthleteStatsResponse getAthleteStats(String token, int athleteId) {
-        return stravaDataService.getAthleteStats(token, athleteId);
-    }
+  public AthleteStatsResponse getAthleteStats(String token, int athleteId) {
+    return stravaDataService.getAthleteStats(token, athleteId);
+  }
 
 }

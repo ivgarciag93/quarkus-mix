@@ -7,8 +7,8 @@ import java.time.Instant;
 @RegisterForReflection
 public class ItemInfo {
 
-    public Integer itemCode;
-    public String itemDescription;
-    public Instant creationDate;
+  public Integer itemCode;
+  public String itemDescription;
+  public Instant creationDate;
 
 }

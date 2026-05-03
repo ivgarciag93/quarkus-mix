@@ -14,27 +14,27 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class CombinedAsyncCallService extends BaseAsyncCallService {
 
-    @Inject
-    CombinedService combinedService;
+  @Inject
+  CombinedService combinedService;
 
-    public CompletableFuture<ConfigDto> getConfig() {
-        return managedExecutor
-            .supplyAsync(() -> combinedService.getConfig())
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error obtaining config in pubsub-events");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<ConfigDto> getConfig() {
+    return managedExecutor
+      .supplyAsync(() -> combinedService.getConfig())
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining config in pubsub-events");
+        throw toCompletionException(ex);
+      });
+  }
 
-    public CompletableFuture<List<ItemInfo>> getItemsInfo() {
-        return managedExecutor
-            .supplyAsync(() -> combinedService.getItemsInfo())
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error obtaining items info in pubsub-events");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<List<ItemInfo>> getItemsInfo() {
+    return managedExecutor
+      .supplyAsync(() -> combinedService.getItemsInfo())
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining items info in pubsub-events");
+        throw toCompletionException(ex);
+      });
+  }
 
 }

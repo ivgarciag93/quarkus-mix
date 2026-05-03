@@ -6,18 +6,18 @@ import java.time.Instant;
 
 public class AthleteResponse {
 
-    public String id;
+  public String id;
 
-    @JsonProperty("firstname")
-    public String firstName;
+  @JsonProperty("firstname")
+  public String firstName;
 
-    @JsonProperty("lastname")
-    public String lastName;
+  @JsonProperty("lastname")
+  public String lastName;
 
-    public String bic;
+  public String bic;
 
-    @JsonProperty("created_at")
-    public Instant createdAt;
+  @JsonProperty("created_at")
+  public Instant createdAt;
 
-    public String profile;
+  public String profile;
 }

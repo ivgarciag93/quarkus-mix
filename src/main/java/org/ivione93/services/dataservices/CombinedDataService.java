@@ -14,12 +14,12 @@ import java.util.List;
 @RegisterForReflection
 public interface CombinedDataService {
 
-    @GET
-    @Path("/config")
-    ConfigDto getConfig();
+  @GET
+  @Path("/config")
+  ConfigDto getConfig();
 
-    @GET
-    @Path("/info")
-    List<ItemInfo> getItemsInfo();
+  @GET
+  @Path("/info")
+  List<ItemInfo> getItemsInfo();
 
 }

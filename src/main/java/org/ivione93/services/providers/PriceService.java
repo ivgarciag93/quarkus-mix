@@ -10,11 +10,11 @@ import java.util.List;
 @ApplicationScoped
 public class PriceService {
 
-    @RestClient
-    PriceDataService priceDataService;
+  @RestClient
+  PriceDataService priceDataService;
 
-    public List<ItemPrice> getItemsPrice() {
-        return priceDataService.getItemsPrice();
-    }
+  public List<ItemPrice> getItemsPrice() {
+    return priceDataService.getItemsPrice();
+  }
 
 }

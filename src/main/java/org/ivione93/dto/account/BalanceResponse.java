@@ -8,8 +8,8 @@ import java.util.List;
 @RegisterForReflection
 public class BalanceResponse {
 
-    public BigDecimal initBalanceAmount;
-    public BigDecimal endBalanceAmount;
-    public List<Movement> movements;
+  public BigDecimal initBalanceAmount;
+  public BigDecimal endBalanceAmount;
+  public List<Movement> movements;
 
 }

@@ -12,47 +12,47 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class StravaAsyncCallService extends BaseAsyncCallService {
 
-    @Inject
-    StravaService stravaService;
+  @Inject
+  StravaService stravaService;
 
-    public CompletableFuture<AuthResponse> getAuthToken(AuthParams authParams) {
-        return managedExecutor
-            .supplyAsync(() -> stravaService.getAuthToken(authParams))
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error obtaining token in Strava");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<AuthResponse> getAuthToken(AuthParams authParams) {
+    return managedExecutor
+      .supplyAsync(() -> stravaService.getAuthToken(authParams))
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining token in Strava");
+        throw toCompletionException(ex);
+      });
+  }
 
-    public CompletableFuture<RefreshTokenResponse> getRefreshToken(RefreshTokenParams refreshTokenParams) {
-        return managedExecutor
-            .supplyAsync(() -> stravaService.getRefreshToken(refreshTokenParams))
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error refreshing token in Strava");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<RefreshTokenResponse> getRefreshToken(RefreshTokenParams refreshTokenParams) {
+    return managedExecutor
+      .supplyAsync(() -> stravaService.getRefreshToken(refreshTokenParams))
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error refreshing token in Strava");
+        throw toCompletionException(ex);
+      });
+  }
 
-    public CompletableFuture<AthleteResponse> getAthlete(String token) {
-        return managedExecutor
-            .supplyAsync(() -> stravaService.getAthlete(token))
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error obtaining athlete info in Strava");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<AthleteResponse> getAthlete(String token) {
+    return managedExecutor
+      .supplyAsync(() -> stravaService.getAthlete(token))
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining athlete info in Strava");
+        throw toCompletionException(ex);
+      });
+  }
 
-    public CompletableFuture<AthleteStatsResponse> getAthleteStats(String token, int athleteId) {
-        return managedExecutor
-            .supplyAsync(() -> stravaService.getAthleteStats(token, athleteId))
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error obtaining athlete stats in Strava");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<AthleteStatsResponse> getAthleteStats(String token, int athleteId) {
+    return managedExecutor
+      .supplyAsync(() -> stravaService.getAthleteStats(token, athleteId))
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining athlete stats in Strava");
+        throw toCompletionException(ex);
+      });
+  }
 
 }

@@ -10,14 +10,15 @@ import java.util.concurrent.CompletionException;
 @ApplicationScoped
 public abstract class BaseAsyncCallService {
 
-    @ConfigProperty(name = "bff.timeout.milliseconds")
-    int timeoutMilliseconds;
+  @ConfigProperty(name = "bff.timeout.milliseconds")
+  int timeoutMilliseconds;
 
-    @Inject ManagedExecutor managedExecutor;
+  @Inject
+  ManagedExecutor managedExecutor;
 
-    CompletionException toCompletionException(final Throwable ex) {
-        return ex instanceof CompletionException
-                ? (CompletionException) ex
-                : new CompletionException(ex);
-    }
+  CompletionException toCompletionException(final Throwable ex) {
+    return ex instanceof CompletionException
+      ? (CompletionException) ex
+      : new CompletionException(ex);
+  }
 }

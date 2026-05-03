@@ -15,44 +15,46 @@ import java.util.concurrent.CompletableFuture;
 @ApplicationScoped
 public class AccountService {
 
-    @Inject AccountAsyncCallService accountAsyncCallService;
-    @Inject AccountConverterService accountConverterService;
+  @Inject
+  AccountAsyncCallService accountAsyncCallService;
+  @Inject
+  AccountConverterService accountConverterService;
 
-    public BalanceResponse getOutstandingBalance(final int storeCode, final String fiscalId) {
-        CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-            accountAsyncCallService.getOutstandingBalance(storeCode, fiscalId);
-        try {
-            return accountConverterService.fillOutstandingBalance(futureAccountBalance.get());
-        } catch (Exception ex) {
-            Log.errorf(ex, "Error while obtaining outstanding balance");
-            throw new WebApplicationException("Unable to obtain outstanding balance", ex);
-        }
+  public BalanceResponse getOutstandingBalance(final int storeCode, final String fiscalId) {
+    CompletableFuture<AccountBalanceResponse> futureAccountBalance =
+      accountAsyncCallService.getOutstandingBalance(storeCode, fiscalId);
+    try {
+      return accountConverterService.fillOutstandingBalance(futureAccountBalance.get());
+    } catch (Exception ex) {
+      Log.errorf(ex, "Error while obtaining outstanding balance");
+      throw new WebApplicationException("Unable to obtain outstanding balance", ex);
     }
+  }
 
-    public BalanceResponse getDailyMovements(final int storeCode, final String fiscalId) {
-        CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-            accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
-        try {
-            return accountConverterService.fillDailyMovements(futureAccountBalance.get());
-        } catch (Exception ex) {
-            Log.errorf(ex, "Error while obtaining daily movements");
-            throw new WebApplicationException("Unable to obtain daily movements", ex);
-        }
+  public BalanceResponse getDailyMovements(final int storeCode, final String fiscalId) {
+    CompletableFuture<AccountBalanceResponse> futureAccountBalance =
+      accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
+    try {
+      return accountConverterService.fillDailyMovements(futureAccountBalance.get());
+    } catch (Exception ex) {
+      Log.errorf(ex, "Error while obtaining daily movements");
+      throw new WebApplicationException("Unable to obtain daily movements", ex);
     }
+  }
 
-    public BalanceResponse getTotalDebt(final int storeCode, final String fiscalId) {
-        CompletableFuture<AccountBalanceResponse> futureAccountBalance =
-            accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
+  public BalanceResponse getTotalDebt(final int storeCode, final String fiscalId) {
+    CompletableFuture<AccountBalanceResponse> futureAccountBalance =
+      accountAsyncCallService.getDailyMovements(storeCode, fiscalId);
 
-        CompletableFuture<AccountStock> futureAccountStock = accountAsyncCallService.getStock();
+    CompletableFuture<AccountStock> futureAccountStock = accountAsyncCallService.getStock();
 
-        try {
-            CompletableFuture.allOf(futureAccountBalance, futureAccountStock).join();
-            return accountConverterService.fillTotalDebt(futureAccountBalance.get(), futureAccountStock.get());
-        } catch (Exception ex) {
-            Log.errorf(ex, "Error while obtaining total debt");
-            throw new WebApplicationException("Unable to obtain total debt", ex);
-        }
+    try {
+      CompletableFuture.allOf(futureAccountBalance, futureAccountStock).join();
+      return accountConverterService.fillTotalDebt(futureAccountBalance.get(), futureAccountStock.get());
+    } catch (Exception ex) {
+      Log.errorf(ex, "Error while obtaining total debt");
+      throw new WebApplicationException("Unable to obtain total debt", ex);
     }
+  }
 
 }

@@ -12,13 +12,13 @@ import org.ivione93.services.CompleteItemsService;
 @Path("v1/pubsub-events-bff")
 public class CompleteItemsApi {
 
-    @Inject
-    CompleteItemsService completeItemsService;
+  @Inject
+  CompleteItemsService completeItemsService;
 
-    @GET
-    @Path("/items/combined")
-    public Response getCombined() {
-        Log.info("Call to getCombined");
-        return Response.ok().entity(completeItemsService.getCombined()).build();
-    }
+  @GET
+  @Path("/items/combined")
+  public Response getCombined() {
+    Log.info("Call to getCombined");
+    return Response.ok().entity(completeItemsService.getCombined()).build();
+  }
 }

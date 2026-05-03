@@ -13,17 +13,17 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class PriceAsyncCallService extends BaseAsyncCallService {
 
-    @Inject
-    PriceService priceService;
+  @Inject
+  PriceService priceService;
 
-    public CompletableFuture<List<ItemPrice>> getItemsPrice() {
-        return managedExecutor
-            .supplyAsync(() -> priceService.getItemsPrice())
-            .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
-            .exceptionally(ex -> {
-                Log.errorf(ex, "Error obtaining items price in pubsub-events-price");
-                throw toCompletionException(ex);
-            });
-    }
+  public CompletableFuture<List<ItemPrice>> getItemsPrice() {
+    return managedExecutor
+      .supplyAsync(() -> priceService.getItemsPrice())
+      .orTimeout(timeoutMilliseconds, TimeUnit.MILLISECONDS)
+      .exceptionally(ex -> {
+        Log.errorf(ex, "Error obtaining items price in pubsub-events-price");
+        throw toCompletionException(ex);
+      });
+  }
 
 }

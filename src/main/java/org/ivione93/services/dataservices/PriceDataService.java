@@ -13,8 +13,8 @@ import java.util.List;
 @RegisterForReflection
 public interface PriceDataService {
 
-    @GET
-    @Path("/all")
-    List<ItemPrice> getItemsPrice();
+  @GET
+  @Path("/all")
+  List<ItemPrice> getItemsPrice();
 
 }
